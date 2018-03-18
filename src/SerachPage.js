@@ -3,32 +3,39 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 class SearchPage extends Component{
-  
+    constructor(){
+        super();
+        this.state = {
+            query : ''
+        }
+    }
     static propTypes = {
         books : PropTypes.array.isRequired
     }
     state = {
         query: ''
     }
-    updateQuery = (query)=>{
-        this.setState({
-            query: query.trim()
-        })
-    }
+    
     clearQuery = () =>{
         this.setState({query: ''})
     }
     render(){
-        const {books} = this.props
+        // const {books} = this.props
         const {query} = this.state
-        let showingBooks 
-        if (query){
-            const match = new RegExp(escapeRegExp(query), 'i')
-            showingBooks = books.filter((book)=> match.test(book.name))
-        }else{
-            showingBooks = this.props.contacts
-        }
-        // showingBooks.sort(sortBy('name'))
+        let searchBooks = this.props.books.filter(
+            (book) => {
+                return (book.title.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1)  ;
+            }
+        ) 
+        // if (query){
+        //     const match = new RegExp(escapeRegExp(query), 'i')
+        //     searchBooks = books.filter((book)=> match.test(book.name))
+        // }else{
+        //     searchBooks = this.props.books
+        // }
+        // searchBooks.sort(sortBy('name'))
+        console.log(this.state.query)
+        console.log(this.props)
         return(
             <div className="search-books">
                 <div className="search-books-bar">
@@ -46,42 +53,42 @@ class SearchPage extends Component{
                             type="text"   
                             placeholder="Search by title or author" 
                             value={this.state.query} 
-                            onChange={(event) => this.updateQuery(event.target.value)} 
+                            onChange={(event) => this.updateTheQuery(event.target.value)} 
                         />
 
                     </div>
                 </div>
-                {/* <div>
-                    {showingBooks.length !== books.length && (
+                 {/* <div>
+                    {searchBooks.length !== books.length && (
                         <div className = 'showing-books'>
-                            <span>Now Showing {showingBooks.length} of {books.length}</span>
+                            <span>Now Showing {searchBooks.length} of {books.length}</span>
                             <button onClick={this.clearQuery}>Show All</button>
                         </div>
                     )}
-                </div> */}
+                </div>   */}
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {/* {showingBooks.map(book => (
-                            <li key = {book.id}>
-                                <div className="book">
-                                    <div className="book-top">
-                                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.url})` }}></div>
-                                        <div className="book-shelf-changer">
-                                            <select>
-                                                <option value="none" disabled>Move to...</option>
-                                                <option value="currentlyReading">Currently Reading</option>
-                                                <option value="wantToRead">Want to Read</option>
-                                                <option value="read">Read</option>
-                                                <option value="none">None</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="book-title">{book.title}</div>
-                                    <div className="book-authors">{book.author}</div>
-                                </div>
-                            </li>
-                        ))} */}
-                        <div>hi</div>
+                        {this.props.books.map(book => (
+                            <li key={book.id}>{book.title}</li>
+                            // <li key = {book.id}>
+                            //     <div className="book">
+                            //         <div className="book-top">
+                            //             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.url})` }}></div>
+                            //             <div className="book-shelf-changer">
+                            //                 <select>
+                            //                     <option value="none" disabled>Move to...</option>
+                            //                     <option value="currentlyReading">Currently Reading</option>
+                            //                     <option value="wantToRead">Want to Read</option>
+                            //                     <option value="read">Read</option>
+                            //                     <option value="none">None</option>
+                            //                 </select>
+                            //             </div>
+                            //         </div>
+                            //         <div className="book-title">{book.title}</div>
+                            //         <div className="book-authors">{book.author}</div>
+                            //     </div>
+                            // </li>
+                        ))} 
                     </ol>
                 </div>
             </div>

@@ -9,24 +9,29 @@ class SearchPage extends Component{
             query : ''
         }
     }
-    static propTypes = {
-        books : PropTypes.array.isRequired
-    }
+    // static propTypes = {
+    //     books : PropTypes.array.isRequired
+    // }
     state = {
         query: ''
     }
-    
+    updateQuery = (query)=>{
+        this.setState({
+            query: query
+            
+        })
+    }
     clearQuery = () =>{
         this.setState({query: ''})
     }
     render(){
         // const {books} = this.props
         const {query} = this.state
-        let searchBooks = this.props.books.filter(
-            (book) => {
-                return (book.title.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1)  ;
-            }
-        ) 
+        // let searchBooks = this.props.books.filter(
+        //     (book) => {
+        //         return (book.title.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1)  ;
+        //     }
+        // ) 
         // if (query){
         //     const match = new RegExp(escapeRegExp(query), 'i')
         //     searchBooks = books.filter((book)=> match.test(book.name))
@@ -53,7 +58,7 @@ class SearchPage extends Component{
                             type="text"   
                             placeholder="Search by title or author" 
                             value={this.state.query} 
-                            onChange={(event) => this.updateTheQuery(event.target.value)} 
+                            onChange={(event) => this.updateQuery(event.target.value)} 
                         />
 
                     </div>
@@ -68,7 +73,7 @@ class SearchPage extends Component{
                 </div>   */}
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.props.books.map(book => (
+                        {/* {this.props.books.map(book => (
                             <li key={book.id}>{book.title}</li>
                             // <li key = {book.id}>
                             //     <div className="book">
@@ -88,7 +93,7 @@ class SearchPage extends Component{
                             //         <div className="book-authors">{book.author}</div>
                             //     </div>
                             // </li>
-                        ))} 
+                        ))}  */}
                     </ol>
                 </div>
             </div>

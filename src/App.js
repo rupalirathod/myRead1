@@ -24,14 +24,11 @@ class BooksApp extends Component {
       this.setState({books})
     })
     BooksAPI.search(this.state.query).then((books)=>{
+      console.log(this.state.query)
       this.setState({books})
+      console.log(books)
     })
-  }
-  updateQuery = (query)=>{
-    this.setState({
-        query: query.trim()
-        
-    })
+  
 }
   // moveBook = (book) => {
   //   this.setState((state) => ({
@@ -51,8 +48,8 @@ class BooksApp extends Component {
             <BooksList books={this.state.books}/>
           )} />
             
-          <Route exact path="/search/:query"  render={() => (
-            <SerachPage updateTheQuery= {this.updateQuery} books={this.state.books} />
+          <Route exact path="/search"  render={() => (
+            <SerachPage books = {this.books}/>
           )} />
           
 

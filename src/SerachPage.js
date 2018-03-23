@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-class SearchPage extends Component{
-    constructor(){
-        super();
-
+class SerachPage extends Component{
+    constructor(props){
+        super(props);
+        this.state ={query: ''}
     }
     // static propTypes = {
     //     books : PropTypes.array.isRequired
@@ -13,13 +13,19 @@ class SearchPage extends Component{
     state = {
         query: ''
     }
-    
+    update = (event) => {
+        this.props.updateQuery(event.target.value)
+        this.setState({query: event.target.value})
+        console.log("this is 1")
+    }
     clearQuery = () =>{
         this.setState({query: ''})
     }
     render(){
         // const {books} = this.props
-        const {query} = this.state
+        // const {query} = this.state
+        const books = this.props.books
+        const query = this.state.query
         // let searchBooks = this.props.books.filter(
         //     (book) => {
         //         return (book.title.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1)  ;
@@ -32,6 +38,7 @@ class SearchPage extends Component{
         //     searchBooks = this.props.books
         // }
         // searchBooks.sort(sortBy('name'))
+        console.log(this.state.query)
         return(
             <div className="search-books">
                 <div className="search-books-bar">
@@ -49,9 +56,9 @@ class SearchPage extends Component{
                             type="text"   
                             placeholder="Search by title or author" 
                             value={this.state.query} 
-                            onChange={(event) => this.props.updateQuery(event.target.value)} 
+                            onChange={this.update} 
                         />
-
+                        
                     </div>
                 </div>
                  {/* <div>
@@ -64,6 +71,7 @@ class SearchPage extends Component{
                 </div>   */}
                 <div className="search-books-results">
                     <ol className="books-grid">
+                   
                         {/* {this.props.books.map(book => (
                             <li key={book.id}>{book.title}</li>
                             // <li key = {book.id}>
@@ -91,4 +99,4 @@ class SearchPage extends Component{
         )
     }
 }
-export default SearchPage
+export default SerachPage

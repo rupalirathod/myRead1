@@ -7,39 +7,41 @@ import './App.css'
 
 
 class BooksApp extends Component {
-  state = {
-    books: [],
-    //query: 'T',
-    shelf:"none"
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    // showSearchPage: true
+  constructor(props){
+    super(props)
+    this.state = {
+      books: [],
+      query: "",
+      shelf:"none"
+      /**
+       * TODO: Instead of using this state variable to keep track of which page
+       * we're on, use the URL in the browser's address bar. This will ensure that
+       * users can use the browser's back and forward buttons to navigate between
+       * pages, as well as provide a good URL they can bookmark and share.
+       */
+      // showSearchPage: true
+    }
   }
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
       this.setState({books})
     })
+    BooksAPI.search(this.query).then((books , query)=>{
+      console.log(this.state.query)
+      this.setState({books, query})
+    })
     //BooksAPI.search(this.state.query).then((books)=>{
     // this.state.query = "T";
-    BooksAPI.search(this.state.query).then((books)=>{
-      console.log(this.state.query)
-      this.setState({books})
-      console.log(books)
-    })
+    
   
 }
 updateQuery = (query)=>{
-  // debugger
-  console.log(this);
-  this.setState({
-      query: query
-      
-  })
-}
+   this.setState({
+     query : query
+    })
+    console.log("this is 2")
+
+};
   // moveBook = (book) => {
   //   this.setState((state) => ({
   //     // books: state.books.filter((b) => b.id !== book.id)

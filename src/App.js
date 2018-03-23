@@ -9,7 +9,7 @@ import './App.css'
 class BooksApp extends Component {
   state = {
     books: [],
-    // query: '',
+    //query: 'T',
     shelf:"none"
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -23,12 +23,22 @@ class BooksApp extends Component {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
     })
+    //BooksAPI.search(this.state.query).then((books)=>{
+    // this.state.query = "T";
     BooksAPI.search(this.state.query).then((books)=>{
       console.log(this.state.query)
       this.setState({books})
       console.log(books)
     })
   
+}
+updateQuery = (query)=>{
+  // debugger
+  console.log(this);
+  this.setState({
+      query: query
+      
+  })
 }
   // moveBook = (book) => {
   //   this.setState((state) => ({
@@ -39,8 +49,6 @@ class BooksApp extends Component {
   // }
   
   render() {
-    console.log(this.state.query)
-    console.log(this.state)
     return (
      <div>
           {/* <BooksList onSelect={this.moveBook} books={this.state.books}/> */}
@@ -49,7 +57,7 @@ class BooksApp extends Component {
           )} />
             
           <Route exact path="/search"  render={() => (
-            <SerachPage books = {this.books}/>
+            <SerachPage updateQuery={this.updateQuery} books = {this.books}/>
           )} />
           
 

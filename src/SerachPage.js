@@ -5,9 +5,7 @@ import sortBy from 'sort-by'
 class SearchPage extends Component{
     constructor(){
         super();
-        this.state = {
-            query : ''
-        }
+
     }
     // static propTypes = {
     //     books : PropTypes.array.isRequired
@@ -15,12 +13,7 @@ class SearchPage extends Component{
     state = {
         query: ''
     }
-    updateQuery = (query)=>{
-        this.setState({
-            query: query
-            
-        })
-    }
+    
     clearQuery = () =>{
         this.setState({query: ''})
     }
@@ -39,8 +32,6 @@ class SearchPage extends Component{
         //     searchBooks = this.props.books
         // }
         // searchBooks.sort(sortBy('name'))
-        console.log(this.state.query)
-        console.log(this.props)
         return(
             <div className="search-books">
                 <div className="search-books-bar">
@@ -58,7 +49,7 @@ class SearchPage extends Component{
                             type="text"   
                             placeholder="Search by title or author" 
                             value={this.state.query} 
-                            onChange={(event) => this.updateQuery(event.target.value)} 
+                            onChange={(event) => this.props.updateQuery(event.target.value)} 
                         />
 
                     </div>

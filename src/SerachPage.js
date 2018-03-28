@@ -16,16 +16,16 @@ class SerachPage extends Component{
     update = (event) => {
         this.props.updateQuery(event.target.value)
         this.setState({query: event.target.value})
-        console.log("this is 1")
     }
     clearQuery = () =>{
         this.setState({query: ''})
     }
     render(){
-        // const {books} = this.props
+        const {books} = this.props
+        console.log('books', this.state.books)
         // const {query} = this.state
-        const books = this.props.books
-        const query = this.state.query
+        // const books = this.props.books
+        // const query = this.state.query
         // let searchBooks = this.props.books.filter(
         //     (book) => {
         //         return (book.title.toLowerCase().indexOf(this.state.query.toLowerCase()) !== -1)  ;
@@ -38,7 +38,6 @@ class SerachPage extends Component{
         //     searchBooks = this.props.books
         // }
         // searchBooks.sort(sortBy('name'))
-        console.log(this.state.query)
         return(
             <div className="search-books">
                 <div className="search-books-bar">

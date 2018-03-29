@@ -26,23 +26,29 @@ class BooksApp extends Component {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
     })
-    console.log( this.query,"this query", this.state.query, "this.state.query")
-    BooksAPI.search(this.query).then((books)=>{
+    // console.log( this.query,"this query", this.state.query, "this.state.query")
+    // BooksAPI.search(this.query).then((books)=>{
       
-      console.log("quer",this.query)
-      this.setState({books})
-      console.log("app.js", books)
-    })
+    //   console.log("quer",this.query)
+    //   this.setState({books})  
+    //   console.log("app.js", books)
+    // })
    
     //BooksAPI.search(this.state.query).then((books)=>{
     // this.state.query = "T";
-    
-  
-}
+  }
+
+
 updateQuery = (query)=>{
    this.setState({
      query : query
+    }, () => {
+      BooksAPI.search(this.state.query).then((books)=>{
+      
+      console.log("quer",this.state.query)
+      this.setState({books})
     })
+    });
 };
   // moveBook = (book) => {
   //   this.setState((state) => ({
@@ -64,7 +70,7 @@ updateQuery = (query)=>{
             <SerachPage updateQuery={this.updateQuery} books = {this.books}/>
           )} />
           
-
+          
           
       </div>
     

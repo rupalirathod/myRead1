@@ -5,7 +5,10 @@ import sortBy from 'sort-by'
 class SerachPage extends Component{
     constructor(props){
         super(props);
-        this.state ={query: ''}
+        this.state ={query: ''};
+        this.state ={books: []};
+
+        this.update = this.update.bind(this);
     }
     // static propTypes = {
     //     books : PropTypes.array.isRequired
